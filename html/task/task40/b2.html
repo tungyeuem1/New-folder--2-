@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>function getUser(userId) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({ id: userId, name: "John", age: 30 });
+      }, 1000);
+    });
+  }
+  
+  function getPurchases(userId) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve([
+          { id: 1, userId: userId, product: "Laptop", price: 1000 },
+          { id: 2, userId: userId, product: "Phone", price: 2000 },
+        ]);
+      }, 1000);
+    });
+  }
+  function getProductDetails(productId, productName, productPrice) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({ id: productId, name: productName, price: productPrice });
+      }, 1000);
+    });
+  }
+  getUser(1)
+    .then((user) => {
+      console.log("User Info:", user);
+      return getPurchases(user.id);
+    })
+    .then((purchases) => {
+      console.log("Purchases:", purchases);
+  
+      const productDetailsPromises = purchases.map((purchase) =>
+        getProductDetails(purchase.id, purchase.product, purchase.price)
+      );
+  
+      return Promise.all(productDetailsPromises);
+    })
+    .then((productDetails) => {
+      console.log("Product Details:", productDetails);
+  
+      const totalPrice = productDetails.reduce((sum, product) => sum + product.price, 0);
+      console.log("Total Price:", totalPrice);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+    </script>
+</body>
+</html>

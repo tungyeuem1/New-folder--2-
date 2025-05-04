@@ -1,0 +1,113 @@
+/* Đặt biến màu sắc */
+:root {
+
+    --secondary-color: #b660ec;
+    --bg-color: #eff0f1;
+    --text-color: #333;
+    --card-bg: #fff;
+    --shadow-color: rgba(6, 27, 82, 0.1);
+    --font-primary: "Poppins", sans-serif;
+    --font-heading: "Merriweather", serif;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: var(--font-primary);
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* Container */
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: auto;
+    padding: 60px 20px;
+    border-radius: 26px;
+    background: var(--bg-color);
+    box-shadow: 0px 10px 30px var(--shadow-color);
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-family: var(--font-heading);
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--primary-color);
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+/* Navigation */
+header ul {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    gap: 12px;
+    margin-bottom: 40px;
+    padding: 0;
+}
+
+header ul li {
+    padding: 10px 16px;
+    border-radius: 8px;
+    background: var(--card-bg);
+    box-shadow: 0px 4px 10px var(--shadow-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+header ul li:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Main */
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+    max-width: 1400px;
+    margin: auto;
+    flex-wrap: nowrap;
+}
+
+/* Card */
+.card {
+    flex: 1;
+    /* Chia đều không gian cho mỗi card */
+    max-width: 420px;
+    padding: 24px;
+    background-color: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: 0px 6px 20px var(--shadow-color);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Hình ảnh

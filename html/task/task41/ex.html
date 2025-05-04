@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="ex.css">
+</head>
+<body>
+    <div class="todo-container">
+        <h1>Danh Sách Công Việc</h1>
+        <div class="input-section">
+          <div class="input-group">
+            <input type="text" id="todoInput" placeholder="Nhập công việc mới..." />
+            <button id="actionButton" onclick="addTodo()">Thêm</button>
+          </div>
+          <div id="errorMessage" class="error-message">Vui lòng nhập công việc!</div>
+        </div>
+        <div class="filter-section">
+          <button onclick="filterTodos('all')" class="active">Tất cả</button>
+          <button onclick="filterTodos('active')">Chưa hoàn thành</button>
+          <button onclick="filterTodos('completed')">Hoàn thành</button>
+        </div>
+        <ul class="todo-list" id="todoList"></ul>
+      </div>
+      <ul class="todo-list" id="todoList"></ul>
+    </div>
+    <script>
+        let todos = JSON.parse(localStorage.getItem("todos")) || [];
+let filter = "all";
+
+function renderTodos() {
+  const todoList = document.getElementById("todoList");
+  todoList.innerHTML = "";
+
+  const filteredTodos = todos.filter((todo) => {
+    if (filter === "all") return true;
+    if (filter === "active") return !todo.completed;
+    if (filter === "completed") return todo.completed;
+  });
+
+  filteredTodos.forEach((todo, index) => {
+    const li = document.createElement("li");
+    li.className = `todo-item ${todo.completed ? "completed" : ""}`;
+
+    const span = document.createElement("span");
+    span.className = "task-text";
+    span.textContent = todo.text;
+    span.onclick = () => toggleTodoStatus(index);
+
+    const status = document.createElement("span");
+    status.className = `status ${todo.completed ? "completed" : "active"}`;
+    status.textContent = todo.completed ? "Hoàn thành" : "Chưa hoàn thành";
+    status.onclick = () => toggleTodoStatus(index);
+
+    const editButton = document.createElement("button");
+    editButton.className = "edit";
+    editButton.textContent = "Sửa";
+    editButton.onclick = () => editTodo(index);
+
+    const deleteButton = document.createElement("button");
+    deleteButton.className = "delete";
+    deleteButton.textContent = "Xóa";
+    deleteButton.onclick = () => deleteTodo(index);
+
+    li.appendChild(span);
+    li.appendChild(status);
+    li.appendChild(editButton);
+    li.appendChild(deleteButton);
+    todoList.appendChild(li);
+  });
+}
+
+function addTodo() {
+  const todoInput = document.getElementById("todoInput");
+  const errorMessage = document.getElementById("errorMessage");
+
+  if (!todoInput.value.trim()) {
+    errorMessage.style.display = "block";
+    return;
+  }
+
+  errorMessage.style.display = "none";
+  todos.push({ text: todoInput.value.trim(), completed: false });
+  todoInput.value = "";
+  saveTodos();
+  renderTodos();
+}
+
+function editTodo(index) {
+  const newTask = prompt("Chỉnh sửa công việc:", todos[index].text);
+  if (newTask !== null && newTask.trim() !== "") {
+    todos[index].text = newTask.trim();
+    saveTodos();
+    renderTodos();
+  }
+}
+
+function deleteTodo(index) {
+  todos.splice(index, 1);
+  saveTodos();
+  renderTodos();
+}
+
+function toggleTodoStatus(index) {
+  todos[index].completed = !todos[index].completed;
+  saveTodos();
+  renderTodos();
+}
+
+function filterTodos(status) {
+  filter = status;
+  document.querySelectorAll(".filter-section button").forEach((button) => {
+    button.classList.remove("active");
+  });
+  document
+    .querySelector(`.filter-section button[onclick="filterTodos('${status}')"]`)
+    .classList.add("active");
+  renderTodos();
+}
+
+function saveTodos() {
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+// Khởi tạo ứng dụng
+renderTodos();
+    </script>
+</body>
+</html>

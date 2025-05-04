@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const data = [
+            {id:1,name:"ban phim aulaf75",price:80000}
+        ]
+
+        function hightliighKeyWrod(test,keyword){
+            const regex = new RegExp(`(${keyword})`,"gi")
+            return text.replace(regex,"<strong>$1</strong>");
+            
+        }
+        const result = hightliighKeyWrod(
+            "Hocj JavaScript khong khon , Hoc javascript kho da co Codefarm"
+        )
+    </script>
+</body>
+</html>

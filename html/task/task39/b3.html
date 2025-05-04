@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>function getData(callback) {
+        if (callback && typeof callback === "function") {
+      
+          setTimeout(() => {
+            const data = [1, 2, 3, 4];
+            callback(data);
+          }, 1000);
+        } else {
+        
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              const data = [1, 2, 3, 4];
+              resolve(data);
+            }, 1000);
+          });
+        }
+      }
+      
+      getData((data) => {
+        console.log("Callback:", data);
+      });
+      async function fetchData() {
+        try {
+          const data = await getData();
+          console.log("Async/Await:", data);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      
+      fetchData();</script>
+</body>
+</html>

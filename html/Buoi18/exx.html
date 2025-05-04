@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // function ncodeRLE(str){
+        //     let result = ""; 
+        //     let count = 1;
+
+        //     for (let i = 0; i < str.length; i++) {
+        //         if (str[i] === str[i + 1]) {
+        //             count++;
+        //         } else {
+        //             result += str[i] + count; 
+        //             count = 1; 
+        //         }
+        //     }
+            
+        //     return result; 
+        // }
+        // console.log(ncodeRLE("2233334445555")); 
+        
+
+        function findMostFrequent(arr){
+            let frequency = {}; 
+            let maxCount = 0; 
+            let mostFrequent; 
+
+            for (let i = 0; i < arr.length; i++) {
+                let num = arr[i]; 
+                frequency[num] = (frequency[num] || 0) + 1; 
+
+                if (frequency[num] > maxCount) {
+                    maxCount = frequency[num]; 
+                    mostFrequent = num; 
+                }
+            }
+
+            return mostFrequent; 
+        }
+        console.log(findMostFrequent([1, 2, 3, 4, 5, 1, 2, 1,1, 2, 2, 3, 3, 3, 4, ,4,4, 4])); // 1
+        
+    </script>
+</body>
+</html>
