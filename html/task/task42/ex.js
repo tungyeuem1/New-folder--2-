@@ -44,18 +44,15 @@ let students = JSON.parse(localStorage.getItem("students")) || [
       tableBody.appendChild(row);
     });
   }
-  
   function addStudent() {
     const name = document.getElementById("name").value.trim();
     const math = parseFloat(document.getElementById("math").value);
     const english = parseFloat(document.getElementById("english").value);
     const science = parseFloat(document.getElementById("science").value);
-  
     if (!name || isNaN(math) || isNaN(english) || isNaN(science)) {
       alert("Vui lòng nhập đầy đủ và đúng dữ liệu!");
       return;
     }
-  
     const newStudent = {
       id: students.length ? students[students.length - 1].id + 1 : 1,
       name,
@@ -63,49 +60,39 @@ let students = JSON.parse(localStorage.getItem("students")) || [
       english,
       science,
     };
-  
     students.push(newStudent);
     saveStudents();
     renderStudents();
     document.getElementById("studentForm").reset();
   }
-  
   function deleteStudent(id) {
     students = students.filter((student) => student.id !== id);
     saveStudents();
     renderStudents();
     alert("Xóa sinh viên thành công!");
   }
-  
   function editStudent(id) {
     const student = students.find((student) => student.id === id);
     const newMath = parseFloat(prompt("Nhập điểm Toán mới:", student.math));
     const newEnglish = parseFloat(prompt("Nhập điểm Anh mới:", student.english));
     const newScience = parseFloat(prompt("Nhập điểm Khoa học mới:", student.science));
-  
     if (isNaN(newMath) || isNaN(newEnglish) || isNaN(newScience)) {
       alert("Vui lòng nhập đúng dữ liệu!");
       return;
     }
-  
     student.math = newMath;
     student.english = newEnglish;
     student.science = newScience;
-  
     saveStudents();
     renderStudents();
   }
-  
   function searchStudents() {
     const searchInput = document.getElementById("search").value.trim();
     renderStudents(searchInput);
   }
-  
   function saveStudents() {
     localStorage.setItem("students", JSON.stringify(students));
   }
-  
-  // Khởi tạo ứng dụng
   document.getElementById("addButton").onclick = addStudent;
   document.getElementById("search").oninput = searchStudents;
   renderStudents();
