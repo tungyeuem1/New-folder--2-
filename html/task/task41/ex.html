@@ -26,7 +26,8 @@
       <ul class="todo-list" id="todoList"></ul>
     </div>
     <script>
-        let todos = JSON.parse(localStorage.getItem("todos")) || [];
+      
+    let todos = JSON.parse(localStorage.getItem("todos")) || [];
 let filter = "all";
 
 function renderTodos() {
@@ -68,6 +69,7 @@ function renderTodos() {
     li.appendChild(editButton);
     li.appendChild(deleteButton);
     todoList.appendChild(li);
+    
   });
 }
 
